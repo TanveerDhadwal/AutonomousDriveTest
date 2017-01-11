@@ -62,5 +62,16 @@ void Drive::driveMethod(double left, double right) {
 	SmartDashboard::PutNumber("Right2 pos",rightMotor2->GetEncPosition());
 	SmartDashboard::PutNumber("Right2 volt",rightMotor2->GetEncVel());
 	SmartDashboard::PutNumber("Left2 volt",leftMotor2->GetEncVel());
-	printf("%f/n",leftMotor2->GetEncPosition());
+}
+
+void Drive::ResetEncoders() {
+	Robot::drive->leftMotor2->SetEncPosition(0);
+	Robot::drive->rightMotor2->SetEncPosition(0);
+}
+
+bool Drive::CompareEncoders() {
+	if (Robot::drive->leftMotor2->GetEncPosition() == Robot::drive->rightMotor2->GetEncPosition() == 1000) {
+		return true;
+	}
+	return false;
 }

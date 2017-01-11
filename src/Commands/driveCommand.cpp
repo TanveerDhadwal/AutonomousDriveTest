@@ -31,6 +31,9 @@ void driveCommand::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void driveCommand::Execute() {
 	Robot::drive->driveMethod(Robot::oi->getleftJoystick()->GetY(),Robot::oi->getrightJoystick()->GetY()*1);
+	if (Robot::oi->getleftJoystick()->GetRawButton(1)) {
+		Robot::drive->ResetEncoders();
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

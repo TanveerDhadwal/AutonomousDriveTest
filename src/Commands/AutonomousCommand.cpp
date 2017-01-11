@@ -24,16 +24,28 @@ AutonomousCommand::AutonomousCommand(): Command() {
 
 // Called just before this Command runs the first time
 void AutonomousCommand::Initialize() {
+	Robot::drive->ResetEncoders();
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousCommand::Execute() {
+	SetTimeout(5);
 
+	if (Robot::drive->leftMotor2->GetEncPosition == 1000) {
+		Robot::drive->driveMethod(0,.25);
+	} else if (Robot::drive->rightMotor2->GetEncPosition()== 1000) {
+		Robot::drive->driveMethod(.25,0);
+	} else {
+		Robot::drive->driveMethod(.25,.25);
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutonomousCommand::IsFinished() {
+	if(IsTimedOut() || Robot::drive->CompareEncoders()){
+		return true;
+	}
     return false;
 }
 
