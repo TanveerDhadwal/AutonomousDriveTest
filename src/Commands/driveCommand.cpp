@@ -30,9 +30,11 @@ void driveCommand::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void driveCommand::Execute() {
-	Robot::drive->driveMethod(Robot::oi->getleftJoystick()->GetY(),Robot::oi->getrightJoystick()->GetY()*1);
-	if (Robot::oi->getleftJoystick()->GetRawButton(1)) {
-		Robot::drive->ResetEncoders();
+	if (Robot::teleop) {
+		Robot::drive->driveMethod(Robot::oi->getleftJoystick()->GetY(),Robot::oi->getrightJoystick()->GetY()*1);
+		if (Robot::oi->getleftJoystick()->GetRawButton(1)) {
+			Robot::drive->ResetEncoders();
+		}
 	}
 }
 
